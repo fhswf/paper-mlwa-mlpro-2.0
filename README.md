@@ -1,13 +1,5 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13995893.svg)](https://doi.org/10.5281/zenodo.13995893)
 
-# Checklist (remove before publication!)
-
-- Change title and description
-- Change visibility to public
-- Create a new Zenodo record, create a release v0.0.0 and adjust the above badge
-- Add a citation to the paper
-
-
 # Paper ScienceDirect MLWA - Arend e.a. - "MLPro 2.0 - Online machine learning in Python"
 This repository provides the sample program described in Section _**IV. SAMPLE: AUTO-RENORMALIZATION OF DRIFTING
 STREAM DATA**_ of the above conference paper.
