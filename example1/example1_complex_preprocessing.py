@@ -7,9 +7,9 @@
 ## -------------------------------------------------------------------------------------------------
 
 """
-Ver. 1.2.1 (2024-07-19)
+Ver. 1.0.0 (2024-11-25)
 
-This howto shows an example of complex preprocessing with parallel tasks. It addresses several
+This example shows an example of complex preprocessing with parallel tasks. It addresses several
 problems like feature rearanging, numerical feature derivation, data windowing, and self-adapting
 realtime normalization.
 
