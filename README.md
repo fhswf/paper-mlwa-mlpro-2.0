@@ -8,7 +8,7 @@
 - Add a citation to the paper
 
 
-# Paper [Journal] [Year] - Arend/Schwung - "Title of the paper"
+# Paper ScienceDirect MLWA - Arend e.a. - "MLPro 2.0 - Online machine learning in Python"
 This repository provides the sample program described in Section _**IV. SAMPLE: AUTO-RENORMALIZATION OF DRIFTING
 STREAM DATA**_ of the above conference paper.
 
