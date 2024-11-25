@@ -12,17 +12,22 @@
 This repository provides the sample program described in Section _**IV. SAMPLE: AUTO-RENORMALIZATION OF DRIFTING
 STREAM DATA**_ of the above conference paper.
 
-## How to execute
+## Preparation
 
-[Step 1: Install these Python packages](requirements.txt)
+[Install these Python packages](requirements.txt)
 
-[Step 2: Execute the sample program and follow the hints on the screen](src/sample_auto-renormalization_of_drifting_stream_data.py)
 
-[Step 3: Manually arrange the plot windows and press enter](video/window_arrangement.gif)
+## Example 1: Extensive preprocessing
 
-## Screenshots 1
+![example1](example1/example1_complex_preprocessing.gif)
 
-## Screenshots 2
+[Execute the sample program and follow the hints on the screen](example1/example1_complex_preprocessing.py)
+
+
+
+## Example 2: Online clustering of stream data
+
+## Example 3: Example 3: Anomaly detection
 
 ## See also
 
