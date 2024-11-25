@@ -1,8 +1,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13995893.svg)](https://doi.org/10.5281/zenodo.13995893)
 
 # Paper ScienceDirect MLWA - Arend e.a. - "MLPro 2.0 - Online machine learning in Python"
-This repository provides the sample program described in Section _**IV. SAMPLE: AUTO-RENORMALIZATION OF DRIFTING
-STREAM DATA**_ of the above conference paper.
+This repository provides the example programs described in Section _**6. MLPro-OA in practice**_ of the above journal paper.
 
 ## Preparation
 
