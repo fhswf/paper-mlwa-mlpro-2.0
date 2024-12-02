@@ -37,6 +37,6 @@ Laxmikant Shrikant Baheti: [email](mailto:baheti.laxmikantshrikant@fh-swf.de) | 
 
 Steve Yuwono: [email](mailto:yuwono.steve@fh-swf.de) | [orcid](https://orcid.org/0000-0001-7570-2726) | [researchgate](https://www.researchgate.net/profile/Steve-Yuwono)
 
-Syamraj Purushamparambil Satheesh Kumar: [email](syam.ps1804@gmail.com)
+Syamraj Purushamparambil Satheesh Kumar: [email](mailto:syam.ps1804@gmail.com)
 
 Andreas Schwung: [email](mailto:schwung.andreas@fh-swf.de) | [orcid](https://orcid.org/0000-0001-8405-0977) | [researchgate](https://www.researchgate.net/profile/Andreas-Schwung)
