@@ -31,7 +31,7 @@ from mlpro.bf.various import Log
 from mlpro.bf.mt import Range
 from mlpro.bf.ops import Mode
 from mlpro.bf.plot import PlotSettings
-from mlpro.oa.streams import OAScenario, OAWorkflow
+from mlpro.oa.streams import OAStreamScenario, OAStreamWorkflow
 from mlpro_int_sklearn.wrappers.anomalydetectors.lof import WrSklearnLOF2MLPro
 
 
@@ -39,7 +39,7 @@ from mlpro_int_sklearn.wrappers.anomalydetectors.lof import WrSklearnLOF2MLPro
 
 ## -------------------------------------------------------------------------------------------------
 ## -------------------------------------------------------------------------------------------------
-class AdScenario4ADlof (OAScenario):
+class AdScenario4ADlof (OAStreamScenario):
 
     C_NAME = 'AdScenario4ADlof'
 
@@ -48,23 +48,28 @@ class AdScenario4ADlof (OAScenario):
 
         # 1 Get the native stream from MLPro stream provider
         mystream = StreamMLProPOutliers( p_functions = ['sin', 'cos', 'const'],
-                                         p_outlier_rate=0.022,
-                                         p_seed=6, 
-                                         p_visualize=p_visualize,
-                                         p_logging=p_logging )
+                                         p_outlier_rate = 0.022,
+                                         p_seed = 6, 
+                                         p_visualize = p_visualize,
+                                         p_logging = p_logging )
 
         # 2 Creation of a workflow
-        workflow = OAWorkflow( p_name='wf1',
-                               p_range_max=Range.C_RANGE_NONE,
-                               p_ada=p_ada,
-                               p_visualize=p_visualize, 
-                               p_logging=p_logging )
+        workflow = OAStreamWorkflow( p_name = 'wf1',
+                                     p_range_max = Range.C_RANGE_NONE,
+                                     p_ada = p_ada,
+                                     p_visualize = p_visualize, 
+                                     p_logging = p_logging )
 
         # 3 Initiailise the lof anomaly detctor class
-        anomalydetector =WrSklearnLOF2MLPro(p_group_anomaly_det=False, p_neighbours = 3, p_delay=3, p_visualize=p_visualize, p_data_buffer=5)
+        anomalydetector =WrSklearnLOF2MLPro( p_group_anomaly_det = False, 
+                                             p_neighbours = 3, 
+                                             p_delay = 3, 
+                                             p_data_buffer = 5,
+                                             p_visualize = p_visualize,
+                                             p_logging = p_logging )
 
         # 4 Add anomaly detection task to workflow
-        workflow.add_task( p_task=anomalydetector )
+        workflow.add_task( p_task = anomalydetector )
 
         # 5 Return stream and workflow
         return mystream, workflow
@@ -91,14 +96,14 @@ else:
 
 
 # 2 Instantiate the stream scenario
-myscenario = AdScenario4ADlof( p_mode=Mode.C_MODE_REAL,
-                                 p_cycle_limit=cycle_limit,
-                                 p_visualize=visualize,
-                                 p_logging=logging )
+myscenario = AdScenario4ADlof( p_mode = Mode.C_MODE_REAL,
+                               p_cycle_limit = cycle_limit,
+                               p_visualize = visualize,
+                               p_logging = logging )
 
 myscenario.init_plot( p_plot_settings=PlotSettings( p_view = PlotSettings.C_VIEW_3D,
-                                                        p_view_autoselect = False,
-                                                        p_step_rate = step_rate ) )
+                                                    p_view_autoselect = False,
+                                                    p_step_rate = step_rate ) )
 
 
 # 3 Reset and run own stream scenario

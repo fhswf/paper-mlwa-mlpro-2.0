@@ -32,7 +32,7 @@ from mlpro.bf.streams.streams import StreamMLProClouds
 from mlpro.bf.various import Log
 from mlpro.bf.plot import PlotSettings
 from mlpro.bf.ops import Mode
-from mlpro.oa.streams import OAScenario, OAWorkflow
+from mlpro.oa.streams import OAStreamScenario, OAStreamWorkflow
 from mlpro.oa.streams.tasks import BoundaryDetector, NormalizerMinMax
 
 from mlpro_int_river.wrappers.clusteranalyzers import WrRiverKMeans2MLPro
@@ -40,7 +40,7 @@ from mlpro_int_river.wrappers.clusteranalyzers import WrRiverKMeans2MLPro
 
 
 # 1 Prepare a scenario for Static 3D Point Clouds
-class Static3DScenario(OAScenario):
+class Static3DScenario(OAStreamScenario):
 
     C_NAME = 'Static3DScenario'
 
@@ -53,55 +53,53 @@ class Static3DScenario(OAScenario):
                                     p_seed = 1,
                                     p_radii = [100, 150, 200, 250, 300],
                                     p_weights = [2,3,4,5,6],
-                                    p_logging=Log.C_LOG_NOTHING )
+                                    p_logging = Log.C_LOG_NOTHING )
 
         # 1.2 Set up a stream workflow based on a custom stream task
 
         # 1.2.1 Creation of a workflow
-        workflow = OAWorkflow(p_name='Cluster Analysis using KMeans@River',
-                              p_range_max=OAWorkflow.C_RANGE_NONE,
-                              p_ada=p_ada,
-                              p_visualize=p_visualize,
-                              p_logging=p_logging)
+        workflow = OAStreamWorkflow( p_name = 'Cluster Analysis using KMeans@River',
+                                     p_range_max = OAStreamWorkflow.C_RANGE_NONE,
+                                     p_ada = p_ada,
+                                     p_visualize = p_visualize,
+                                     p_logging = p_logging )
 
 
         # 1.2.2 Creation of tasks and add them to the workflow
 
         # Boundary detector 
-        task_bd = BoundaryDetector(p_name='#1: Boundary Detector', 
-                                   p_ada=True, 
-                                   p_visualize=p_visualize,   
-                                   p_logging=p_logging)
+        task_bd = BoundaryDetector( p_name = '#1: Boundary Detector', 
+                                    p_ada = p_ada, 
+                                    p_visualize = p_visualize,   
+                                    p_logging = p_logging)
         
-        workflow.add_task(p_task = task_bd)
+        workflow.add_task( p_task = task_bd )
 
         # MinMax-Normalizer
-        task_norm_minmax = NormalizerMinMax(p_name='#2: Normalizer MinMax ', 
-                                            p_ada=True,
-                                            p_visualize=p_visualize, 
-                                            p_logging=p_logging )
+        task_norm_minmax = NormalizerMinMax( p_name = '#2: Normalizer MinMax ', 
+                                             p_ada = p_ada,
+                                             p_visualize = p_visualize, 
+                                             p_logging = p_logging )
 
-        task_bd.register_event_handler(
-            p_event_id=BoundaryDetector.C_EVENT_ADAPTED,
-            p_event_handler=task_norm_minmax.adapt_on_event
-            )
+        task_bd.register_event_handler( p_event_id = BoundaryDetector.C_EVENT_ADAPTED,
+                                        p_event_handler = task_norm_minmax.adapt_on_event )
         
-        workflow.add_task(p_task = task_norm_minmax, p_pred_tasks=[task_bd])
+        workflow.add_task( p_task = task_norm_minmax, p_pred_tasks=[task_bd] )
 
         # Cluster Analyzer
-        task_clusterer = WrRiverKMeans2MLPro( p_name='#3: KMeans@River',
-                                              p_n_clusters=5,
-                                              p_halflife=0.25, 
-                                              p_sigma=1.5, 
-                                              p_mu=0.0,
-                                              p_seed=30,
-                                              p_visualize=p_visualize,
-                                              p_logging=p_logging )
+        task_clusterer = WrRiverKMeans2MLPro( p_name = '#3: KMeans@River',
+                                              p_n_clusters = 5,
+                                              p_halflife = 0.25, 
+                                              p_sigma = 1.5, 
+                                              p_mu = 0.0,
+                                              p_seed = 30,
+                                              p_visualize = p_visualize,
+                                              p_logging = p_logging )
         
-        task_norm_minmax.register_event_handler( p_event_id=NormalizerMinMax.C_EVENT_ADAPTED,
-                                                 p_event_handler=task_clusterer.renormalize_on_event )
+        task_norm_minmax.register_event_handler( p_event_id = NormalizerMinMax.C_EVENT_ADAPTED,
+                                                 p_event_handler = task_clusterer.renormalize_on_event )
         
-        workflow.add_task(p_task = task_clusterer, p_pred_tasks=[task_norm_minmax])
+        workflow.add_task( p_task = task_clusterer, p_pred_tasks=[task_norm_minmax] )
 
         # 1.3 Return stream and workflow
         return stream, workflow

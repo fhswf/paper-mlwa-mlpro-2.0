@@ -44,7 +44,7 @@ from mlpro.oa.streams.tasks import BoundaryDetector, NormalizerMinMax, Normalize
 
 ## -------------------------------------------------------------------------------------------------
 ## -------------------------------------------------------------------------------------------------
-class MyScenario (OAScenario):
+class MyScenario (OAStreamScenario):
     """
     Example of a custom stream scenario including a stream and a stream workflow. See class 
     mlpro.oa.streams.OAScenario for further details and explanations.
@@ -61,11 +61,11 @@ class MyScenario (OAScenario):
 
 
         # 2 Set up a stream workflow 
-        workflow = OAWorkflow( p_name = 'Input Signal - "DoubleSpiral2D"', 
-                               p_range_max = Task.C_RANGE_NONE, 
-                               p_ada = p_ada,
-                               p_visualize = p_visualize,
-                               p_logging = logging )
+        workflow = OAStreamWorkflow( p_name = 'Input Signal - "DoubleSpiral2D"', 
+                                     p_range_max = Task.C_RANGE_NONE, 
+                                     p_ada = p_ada,
+                                     p_visualize = p_visualize,
+                                     p_logging = logging )
         
 
         # 2.1 Set up and add a rearranger task to reduce the feature and label space
