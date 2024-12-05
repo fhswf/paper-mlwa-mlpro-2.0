@@ -7,7 +7,7 @@
 ## -------------------------------------------------------------------------------------------------
 
 """
-Ver. 1.0.0 (2024-11-25)
+Ver. 1.0.0 (2024-12-05)
 
 This example shows an example of complex preprocessing with parallel tasks. It addresses several
 problems like feature rearanging, numerical feature derivation, data windowing, and self-adapting
@@ -172,20 +172,12 @@ class MyScenario (OAStreamScenario):
 
 
 # 1 Preparation of demo/unit test mode
-if __name__ == '__main__':
-    # 1.1 Parameters for demo mode
-    cycle_limit = 721
-    logging     = Log.C_LOG_ALL
-    visualize   = True
-    step_rate   = 3
+cycle_limit  = 721
+logging      = Log.C_LOG_ALL
+visualize    = True
+step_rate    = 3
+plot_horizon = cycle_limit
  
-else:
-    # 1.2 Parameters for internal unit test
-    cycle_limit = 102
-    logging     = Log.C_LOG_NOTHING
-    visualize   = False
-    step_rate   = 5
-
 
 
 # 2 Instantiate the stream scenario
@@ -198,14 +190,13 @@ myscenario = MyScenario( p_mode=Mode.C_MODE_SIM,
 
 # 3 Reset and run own stream scenario
 myscenario.reset()
+myscenario.init_plot( p_plot_settings=PlotSettings( p_view = PlotSettings.C_VIEW_ND,
+                                                    p_view_autoselect = False,
+                                                    p_step_rate = step_rate,
+                                                    p_plot_horizon = plot_horizon ) )
 
-if __name__ == '__main__':
-    myscenario.init_plot( p_plot_settings=PlotSettings( p_view = PlotSettings.C_VIEW_ND,
-                                                        p_view_autoselect = False,
-                                                        p_step_rate = step_rate ) )
-    input('Press ENTER to start stream processing...')
+input('Press ENTER to start stream processing...')
 
 myscenario.run()
 
-if __name__ == '__main__':
-    input('Press ENTER to exit...')
+input('Press ENTER to exit...')
