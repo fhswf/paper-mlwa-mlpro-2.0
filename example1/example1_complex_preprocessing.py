@@ -7,7 +7,7 @@
 ## -------------------------------------------------------------------------------------------------
 
 """
-Ver. 1.0.0 (2024-12-05)
+Ver. 1.0.0 (2024-12-09)
 
 This example shows an example of complex preprocessing with parallel tasks. It addresses several
 problems like feature rearanging, numerical feature derivation, data windowing, and self-adapting
@@ -144,6 +144,7 @@ class MyScenario (OAStreamScenario):
         # 2.6 Setup Z Transform-Normalizer in Parallel
         task6_norm_ztrans = NormalizerZTransform( p_name = '6 - Normalizer Z-Trans',
                                                   p_ada = p_ada,
+                                                  p_duplicate_data = True, # Important!! Avoids normalization of the original instances
                                                   p_visualize = p_visualize,
                                                   p_logging = p_logging )
         
@@ -154,6 +155,7 @@ class MyScenario (OAStreamScenario):
         # 2.7 Setup MinMax-Normalizer
         task7_norm_minmax = NormalizerMinMax( p_name = '7 - Normalizer MinMax', 
                                               p_ada = p_ada, 
+                                              p_duplicate_data = True,   # Important!! Avoids normalization of the original instances
                                               p_visualize = p_visualize, 
                                               p_logging = p_logging )
 
