@@ -10,15 +10,38 @@ This repository provides the example programs described in Section _**6. MLPro-O
 
 ## Example 1: Extensive preprocessing
 
-![example1](example1/example1_complex_preprocessing.gif)
+![example1](example1/example1_extensive_preprocessing.gif)
 
-[Execute the sample program and follow the hints on the screen](example1/example1_complex_preprocessing.py)
+[Execute the sample program and follow the hints on the screen](example1/example1_extensive_preprocessing.py)
 
 
+## Example 2a: Online clustering (2D)
 
-## Example 2: Online clustering of stream data
+![example1](example2/example2a_online_clustering_of_stream_data_2d.gif)
 
-## Example 3: Example 3: Anomaly detection
+[Execute the sample program and follow the hints on the screen](example2/example2a_online_clustering_of_stream_data_2d.py)
+
+
+## Example 2b: Online clustering (3D)
+
+![example1](example2/example2b_online_clustering_of_stream_data_3d.gif)
+
+[Execute the sample program and follow the hints on the screen](example2/example2b_online_clustering_of_stream_data_3d.py)
+
+
+## Example 3a: Anomaly detection
+
+![example1](example3/example3a_anomaly_detection_3d.gif)
+
+[Execute the sample program and follow the hints on the screen](example3/example3a_anomaly_detection_3d.py)
+
+
+## Example 3b: Anomaly detection
+
+![example1](example3/example3b_anomaly_detection_nd.gif)
+
+[Execute the sample program and follow the hints on the screen](example3/example3b_anomaly_detection_nd.py)
+
 
 ## See also
 
