@@ -3,13 +3,13 @@
 ## -- Journal    : ScienceDirect, Machine Learning with Applications (MLWA)
 ## -- Authors    : Detlef Arend, Laxmikant Shrikant Baheti, Steve Yuwono, 
 ## --              Syamraj Purushamparambil Satheesh Kumar, Andreas Schwung
-## -- Module     : example1_complex_preprocessing.py
+## -- Module     : example1_extensive_preprocessing.py
 ## -------------------------------------------------------------------------------------------------
 
 """
-Ver. 1.0.0 (2024-12-09)
+Ver. 1.0.0 (2024-12-12)
 
-This example shows an example of complex preprocessing with parallel tasks. It addresses several
+This example shows an example of extensive preprocessing with parallel tasks. It addresses several
 problems like feature rearanging, numerical feature derivation, data windowing, and self-adapting
 realtime normalization.
 
@@ -173,13 +173,23 @@ class MyScenario (OAStreamScenario):
 
 
 
-# 1 Preparation of demo/unit test mode
+# 1 Demo setup
+
+# 1.1 Default values
 cycle_limit  = 721
 logging      = Log.C_LOG_ALL
 visualize    = True
 step_rate    = 3
 plot_horizon = cycle_limit
  
+# 1.2 Welcome message
+print('\n\n-----------------------------------------------------------------------------------------')
+print('Publication: "MLPro 2.0 - Online machine learning in Python"')
+print('Journal    : ScienceDirect, Machine Learning with Applications (MLWA)')
+print('Authors    : D. Arend, L.S. Baheti, S. Yuwono, S.P.S. Kumar, A. Schwung')
+print('Affiliation: South Westphalia University of Applied Sciences, Germany')
+print('Sample     : 1 Extensive preprocessing')
+print('-----------------------------------------------------------------------------------------\n')
 
 
 # 2 Instantiate the stream scenario
@@ -189,7 +199,6 @@ myscenario = MyScenario( p_mode=Mode.C_MODE_SIM,
                          p_logging=logging )
 
 
-
 # 3 Reset and run own stream scenario
 myscenario.reset()
 myscenario.init_plot( p_plot_settings=PlotSettings( p_view = PlotSettings.C_VIEW_ND,
@@ -197,7 +206,7 @@ myscenario.init_plot( p_plot_settings=PlotSettings( p_view = PlotSettings.C_VIEW
                                                     p_step_rate = step_rate,
                                                     p_plot_horizon = plot_horizon ) )
 
-input('Press ENTER to start stream processing...')
+input('\n\nPlease arrange all windows and press ENTER to start stream processing...')
 
 myscenario.run()
 
