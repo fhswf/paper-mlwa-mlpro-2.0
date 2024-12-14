@@ -51,7 +51,9 @@ class Static2DScenario(OAStreamScenario):
                                     p_num_instances = 2000,
                                     p_num_clouds = 5,
                                     p_seed = 1,
-                                    p_radii = [100],
+                                    #p_radii = [100],
+                                    p_radii = [100, 150, 200, 250, 300],
+                                    p_weights = [2,3,4,5,6],
                                     p_logging = Log.C_LOG_NOTHING )
 
         # 2 Set up a stream workflow based on a custom stream task
@@ -90,6 +92,7 @@ class Static2DScenario(OAStreamScenario):
                                               p_n_clusters = 5,
                                               p_halflife = 0.05, 
                                               p_sigma = -1.0, 
+                                              p_mu = 0.0,
                                               p_seed = 62,
                                               p_visualize = p_visualize,
                                               p_logging = p_logging )
