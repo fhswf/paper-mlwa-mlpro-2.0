@@ -7,7 +7,7 @@
 ## -------------------------------------------------------------------------------------------------
 
 """
-Ver. 1.0.0 (2024-12-12)
+Ver. 1.0.0 (2025-04-26)
 
 This module demonstrates the use of anomaly detector based on local outlier factor algorithm with MLPro.
 To this regard, a stream of a stream provider is combined with a stream workflow to a stream scenario.
@@ -26,10 +26,14 @@ Local Outlier Factor
 
 """
 
-from mlpro.bf.streams.streams import *
 from mlpro.bf.various import Log
-from mlpro.oa.streams import *
-from mlpro_int_sklearn.wrappers.anomalydetectors.lof import WrSklearnLOF2MLPro
+from mlpro.bf.ops import Mode
+from mlpro.bf.plot import PlotSettings
+from mlpro.bf.streams.streams import StreamMLProPOutliers
+from mlpro.oa.streams import OAStreamWorkflow, OAStreamScenario
+
+from sklearn.neighbors import LocalOutlierFactor as LOF
+from mlpro_int_sklearn.wrappers.anomalydetectors import WrAnomalyDetectorSklearn2MLPro
 
 
 
@@ -57,16 +61,15 @@ class AdScenario4ADlof (OAStreamScenario):
                                      p_visualize = p_visualize, 
                                      p_logging = p_logging )
 
-        # 3 Initiailise the lof anomaly detector class
-        anomalydetector =WrSklearnLOF2MLPro( p_group_anomaly_det = False, 
-                                             p_neighbours = 3, 
-                                             p_delay = 3, 
-                                             p_data_buffer = 5,
-                                             p_visualize = p_visualize,
-                                             p_logging = p_logging )
+         # 3 Set up and wrap the LOF anomaly detector provided by scikit-learn
+        wrapped_lof = WrAnomalyDetectorSklearn2MLPro( p_algo_scikit_learn = LOF( n_neighbors = 3 ),
+                                                      p_group_anomaly_det = False, 
+                                                      p_delay = 3, 
+                                                      p_visualize = p_visualize,
+                                                      p_logging = p_logging )
 
         # 4 Add anomaly detection task to workflow
-        workflow.add_task( p_task = anomalydetector )
+        workflow.add_task( p_task = wrapped_lof )
 
         # 5 Return stream and workflow
         return mystream, workflow
@@ -93,7 +96,7 @@ print('-------------------------------------------------------------------------
 
 
 # 2 Instantiate the stream scenario
-myscenario = AdScenario4ADlof( p_mode = Mode.C_MODE_REAL,
+myscenario = AdScenario4ADlof( p_mode = Mode.C_MODE_SIM, 
                                p_cycle_limit = cycle_limit,
                                p_visualize = visualize,
                                p_logging = logging )

@@ -51,7 +51,6 @@ class Static2DScenario(OAStreamScenario):
                                     p_num_instances = 2000,
                                     p_num_clouds = 5,
                                     p_seed = 1,
-                                    #p_radii = [100],
                                     p_radii = [100, 150, 200, 250, 300],
                                     p_weights = [2,3,4,5,6],
                                     p_logging = Log.C_LOG_NOTHING )
@@ -127,7 +126,7 @@ print('-------------------------------------------------------------------------
 
 
 # 2 Instantiate the stream scenario
-myscenario = Static2DScenario( p_mode = Mode.C_MODE_REAL,
+myscenario = Static2DScenario( p_mode = Mode.C_MODE_SIM,
                                p_cycle_limit = cycle_limit,
                                p_visualize = visualize,
                                p_logging=logging )
