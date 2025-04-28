@@ -10,35 +10,35 @@ This repository provides the example programs described in Section _**6. MLPro-O
 **Note for running an example from this repository:** When starting an experiment, the workflow task windows appear. These must be [manually arranged on the screen](how_to_run_an_experiment.gif) once. The positions and sizes of the windows are restored the next time the program is started. The experiment begins after confirming the window positions with \[ENTER\].
 
 
-## Example 1: Extensive preprocessing
+## Example 1: Extensive preprocessing using native MLPro features
 
 ![example1](example1/example1_extensive_preprocessing.gif)
 
 [Python script for Example 1](example1/example1_extensive_preprocessing.py)
 
 
-## Example 2a: Online clustering
+## Example 2a: Online clustering using KMeans@River (2D)
 
 ![example1](example2/example2a_online_clustering_of_stream_data_2d.gif)
 
 [Python script for Example 2a](example2/example2a_online_clustering_of_stream_data_2d.py)
 
 
-## Example 2b: Online clustering (3D)
+## Example 2b: Online clustering using KMeans@River (3D)
 
 ![example1](example2/example2b_online_clustering_of_stream_data_3d.gif)
 
 [Python script for Example 2b](example2/example2b_online_clustering_of_stream_data_3d.py)
 
 
-## Example 3a: Anomaly detection (3D)
+## Example 3a: Anomaly detection using LOF@scikit-learn (3D)
 
 ![example1](example3/example3a_anomaly_detection_3d.gif)
 
 [Python script for Example 3a](example3/example3a_anomaly_detection_3d.py)
 
 
-## Example 3b: Anomaly detection (ND)
+## Example 3b: Anomaly detection using LOF@scikit-learn (ND)
 
 ![example1](example3/example3b_anomaly_detection_nd.gif)
 
