@@ -1,7 +1,8 @@
 dill==0.4.0
+multiprocess==0.70.18
 numpy==2.2.5
 matplotlib==3.10.1
-multiprocess==0.70.18
-mlpro==2.0.0
+PySide6>=6.9.0
+mlpro==2.0.1
 mlpro-int-river[full]==0.4.0
 mlpro-int-scikit-learn[full]==0.3.1
