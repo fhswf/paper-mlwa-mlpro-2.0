@@ -101,14 +101,14 @@ class DemoScenario (OAStreamScenario):
         workflow.add_task( p_task = task3_raw_buffered, p_pred_tasks = [ task2_window ] )
 
 
-        # # 2.4 Add a moving average task for the buffered raw data
-        # task4_ma_raw = MovingAverage( p_name = 'T4 - Moving average (buffered)', 
-        #                               p_ada = p_ada,
-        #                               p_visualize = p_visualize,
-        #                               p_logging = p_logging,
-        #                               p_remove_obs = True )
+        # 2.4 Add a moving average task for the buffered raw data
+        task4_ma_raw = MovingAverage( p_name = 'T4 - Moving average (buffered)', 
+                                      p_ada = p_ada,
+                                      p_visualize = p_visualize,
+                                      p_logging = p_logging,
+                                      p_remove_obs = True )
         
-        # workflow.add_task( p_task = task4_ma_raw, p_pred_tasks = [ task3_raw_buffered ] )
+        workflow.add_task( p_task = task4_ma_raw, p_pred_tasks = [ task3_raw_buffered ] )
 
 
         # 2.5 Add a ztrans normalizer and connect to the boundary detector
