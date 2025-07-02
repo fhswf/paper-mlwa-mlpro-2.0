@@ -3,7 +3,7 @@
 ## -- Journal    : ScienceDirect, Machine Learning with Applications (MLWA)
 ## -- Authors    : Detlef Arend, Laxmikant Shrikant Baheti, Steve Yuwono, 
 ## --              Syamraj Purushamparambil Satheesh Kumar, Andreas Schwung
-## -- Module     : example1a_auto_renormalization_minmax.py
+## -- Module     : example1b_auto_renormalization_ztrans.py
 ## -------------------------------------------------------------------------------------------------
 
 """
@@ -19,7 +19,7 @@ from mlpro.bf.ops import Mode
 from mlpro.bf.streams.tasks import Rearranger, RingBuffer
 
 from mlpro.oa.streams import OAStreamTask, OAStreamWorkflow, OAStreamScenario
-from mlpro.oa.streams.tasks import BoundaryDetector, NormalizerMinMax, MovingAverage
+from mlpro.oa.streams.tasks import NormalizerZTransform, MovingAverage
 from mlpro.oa.streams.helpers import OAObserver
 
 from mlpro_int_openml import WrStreamProviderOpenML
@@ -93,73 +93,55 @@ class DemoScenario (OAStreamScenario):
 
 
         # 2.3 Add a moving average task for the buffered raw data
-        task3_raw = OAStreamTask( p_name = 'T3 - Raw, buffered', 
-                                  p_ada = p_ada, 
-                                  p_visualize = p_visualize,
-                                  p_logging = p_logging )
+        task3_raw_buffered = OAStreamTask( p_name = 'T3 - Raw, buffered', 
+                                           p_ada = p_ada, 
+                                           p_visualize = p_visualize,
+                                           p_logging = p_logging )
         
-        workflow.add_task( p_task = task3_raw, p_pred_tasks = [ task2_window ] )
+        workflow.add_task( p_task = task3_raw_buffered, p_pred_tasks = [ task2_window ] )
 
 
-        # 2.4 Add a moving average task for the buffered raw data
-        task4_ma_raw = MovingAverage( p_name = 'T4 - Moving average (buffered)', 
-                                      p_ada = p_ada,
-                                      p_visualize = p_visualize,
-                                      p_logging = p_logging,
-                                      p_remove_obs = True )
+        # # 2.4 Add a moving average task for the buffered raw data
+        # task4_ma_raw = MovingAverage( p_name = 'T4 - Moving average (buffered)', 
+        #                               p_ada = p_ada,
+        #                               p_visualize = p_visualize,
+        #                               p_logging = p_logging,
+        #                               p_remove_obs = True )
         
-        workflow.add_task( p_task = task4_ma_raw, p_pred_tasks = [ task3_raw ] )
+        # workflow.add_task( p_task = task4_ma_raw, p_pred_tasks = [ task3_raw_buffered ] )
 
 
-        # 2.5 Add a boundary detector and connect to the buffered raw data
-        task5_bd = BoundaryDetector( p_name = 'T5 - Boundary detector', 
-                                     p_ada = p_ada, 
-                                     p_visualize = p_visualize,
-                                     p_logging = p_logging,
-                                     p_boundary_provider = task2_window )
+        # 2.5 Add a ztrans normalizer and connect to the boundary detector
+        task5_norm_ztrans = NormalizerZTransform( p_name = 'T5 - ZTrans normalizer', 
+                                                  p_ada = p_ada, 
+                                                  p_duplicate_data = True,
+                                                  p_visualize = p_visualize, 
+                                                  p_logging = p_logging )
 
-        workflow.add_task( p_task = task5_bd, p_pred_tasks = [task3_raw] )
-
-
-        # 2.6 Add a minmax normalizer and connect to the boundary detector
-        task6_norm_minmax = NormalizerMinMax( p_name = 'T6 - MinMax normalizer', 
-                                              p_ada = p_ada, 
-                                              p_duplicate_data = True,
-                                              p_visualize = p_visualize, 
-                                              p_logging = p_logging,
-                                              p_dst_boundaries = [-1,1] )
-
-        task5_bd.register_event_handler( p_event_id = BoundaryDetector.C_EVENT_ADAPTED, p_event_handler = task6_norm_minmax.adapt_on_event )
-        workflow.add_task( p_task = task6_norm_minmax, p_pred_tasks = [task5_bd] )
+        workflow.add_task( p_task = task5_norm_ztrans, p_pred_tasks = [task3_raw_buffered] )
 
 
-        # 2.7 Add a moving average task for raw data behind the normalizer
-        task7_ma_renorm = MovingAverage( p_name = 'T7 - Moving average (renormalized)', 
-                                  p_ada = p_ada,
-                                  p_visualize = p_visualize,
-                                  p_logging = p_logging,
-                                  p_remove_obs = True )
+        # 2.6 Add a moving average task for raw data behind the normalizer
+        task6_ma_renorm = MovingAverage( p_name = 'T6 - Moving average (renormalized)', 
+                                         p_ada = p_ada,
+                                         p_visualize = p_visualize,
+                                         p_logging = p_logging,
+                                         p_remove_obs = True )
         
-        workflow.add_task( p_task = task7_ma_renorm, p_pred_tasks = [ task6_norm_minmax ] )
-        task6_norm_minmax.register_event_handler( p_event_id = NormalizerMinMax.C_EVENT_ADAPTED, p_event_handler = task7_ma_renorm.renormalize_on_event )
+        workflow.add_task( p_task = task6_ma_renorm, p_pred_tasks = [ task5_norm_ztrans ] )
+        task5_norm_ztrans.register_event_handler( p_event_id = NormalizerZTransform.C_EVENT_ADAPTED, p_event_handler = task6_ma_renorm.renormalize_on_event )
 
 
         # 3 Additional helpers for online diagnostics
 
-        # 3.1 Observer for online adaptations of the boundary detector
-        workflow.add_helper( p_helper = OAObserver( p_related_task = task5_bd,
-                                                    p_logarithmic_plot = False,
-                                                    p_visualize = p_visualize,
-                                                    p_logging = p_logging ) )
-
-        # 3.2 Observer for online adaptations of the minmax normalizer
-        workflow.add_helper( p_helper = OAObserver( p_related_task = task6_norm_minmax,
+        # 3.1 Observer for online adaptations of the ztrans normalizer
+        workflow.add_helper( p_helper = OAObserver( p_related_task = task5_norm_ztrans,
                                                     p_logarithmic_plot = False,
                                                     p_visualize = p_visualize,
                                                     p_logging = p_logging ) )
         
-        # 3.3 Observer for online adaptations of the moving average task
-        workflow.add_helper( p_helper = OAObserver( p_related_task = task7_ma_renorm,
+        # 3.2 Observer for online adaptations of the moving average task
+        workflow.add_helper( p_helper = OAObserver( p_related_task = task6_ma_renorm,
                                                     p_logarithmic_plot = False,
                                                     p_visualize = p_visualize,
                                                     p_logging = p_logging ) )
@@ -188,7 +170,7 @@ print('Publication: "MLPro 2.0 - Online machine learning in Python"')
 print('Journal    : ScienceDirect, Machine Learning with Applications (MLWA)')
 print('Authors    : D. Arend, L.S. Baheti, S. Yuwono, S.P.S. Kumar, A. Schwung')
 print('Affiliation: South Westphalia University of Applied Sciences, Germany')
-print('Sample     : 1a Auto-renormalization of drifting stream data (MinMax)')
+print('Sample     : 1b Auto-renormalization of drifting stream data (Z-transformation)')
 print('-----------------------------------------------------------------------------------------\n\n')
 
 # 1.3 User input and derived values
