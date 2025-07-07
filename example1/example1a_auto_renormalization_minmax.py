@@ -7,9 +7,12 @@
 ## -------------------------------------------------------------------------------------------------
 
 """
-Ver. 1.0.0 (2025-07-02)
+Ver. 1.0.0 (2025-07-07)
 
-...
+This experiment demonstrates how to
+- access and process data sets from OpenML using MLPro's integration package mlpro_int_openml
+- set up a stream workflow consisting of numerous stream tasks
+- configure MLPro's auto-renormalization mechanism using MinMax normalization
 
 """
 
@@ -18,7 +21,7 @@ from mlpro.bf.plot import PlotSettings
 from mlpro.bf.ops import Mode
 from mlpro.bf.streams.tasks import Rearranger, RingBuffer
 
-from mlpro.oa.streams import OAStreamTask, OAStreamWorkflow, OAStreamScenario
+from mlpro.oa.streams import OAStreamTask, OAStreamWorkflow, OAStreamScenario, OAStreamAdaptationType
 from mlpro.oa.streams.tasks import BoundaryDetector, NormalizerMinMax, MovingAverage
 from mlpro.oa.streams.helpers import OAObserver
 
@@ -60,7 +63,7 @@ class DemoScenario (OAStreamScenario):
         stream        = WrStreamProviderOpenML( p_logging = p_logging ).get_stream( p_id = '1477' )
         feature_space = stream.get_feature_space()
         features      = feature_space.get_dims()
-        features_new  = [ features[i] for i in [5,6] ]  # Features V6,V7
+        features_new  = [ features[i] for i in [4,5,6] ]  # Features V5,V6,V7
 
 
         # 2 Set up the stream workflow 
@@ -72,7 +75,7 @@ class DemoScenario (OAStreamScenario):
         
 
         # 2.1 Add a rearranger to select the features of interest
-        task1_rearranger = Rearranger( p_name = 'T1 - Rearranger',
+        task1_rearranger = Rearranger( p_name = 'T1/T2 - Feature extraction and sliding window',
                                        p_visualize = p_visualize,
                                        p_logging = p_logging,
                                        p_features_new = [ ( 'F', features_new ) ] )
@@ -82,7 +85,7 @@ class DemoScenario (OAStreamScenario):
     
         # 2.2 Add a basic sliding window to buffer some data
         task2_window = RingBuffer( p_buffer_size = 50, 
-                                   p_delay = False,
+                                   p_delay = True, #False,
                                    p_enable_statistics = True,
                                    p_name = 'T2 - Sliding window',
                                    p_duplicate_data = True,
@@ -135,10 +138,10 @@ class DemoScenario (OAStreamScenario):
 
         # 2.7 Add a moving average task for raw data behind the normalizer
         task7_ma_renorm = MovingAverage( p_name = 'T7 - Moving average (renormalized)', 
-                                  p_ada = p_ada,
-                                  p_visualize = p_visualize,
-                                  p_logging = p_logging,
-                                  p_remove_obs = True )
+                                         p_ada = p_ada,
+                                         p_visualize = p_visualize,
+                                         p_logging = p_logging,
+                                         p_remove_obs = True )
         
         workflow.add_task( p_task = task7_ma_renorm, p_pred_tasks = [ task6_norm_minmax ] )
         task6_norm_minmax.register_event_handler( p_event_id = NormalizerMinMax.C_EVENT_ADAPTED, p_event_handler = task7_ma_renorm.renormalize_on_event )
@@ -148,7 +151,16 @@ class DemoScenario (OAStreamScenario):
 
         # 3.1 Observer for online adaptations of the boundary detector
         workflow.add_helper( p_helper = OAObserver( p_related_task = task5_bd,
+                                                    p_no_per_task = 1,
                                                     p_logarithmic_plot = False,
+                                                    p_filter_subtypes = [ OAStreamAdaptationType.FORWARD ],
+                                                    p_visualize = p_visualize,
+                                                    p_logging = p_logging ) )
+        
+        workflow.add_helper( p_helper = OAObserver( p_related_task = task5_bd,
+                                                    p_no_per_task = 2,
+                                                    p_logarithmic_plot = False,
+                                                    p_filter_subtypes = [ OAStreamAdaptationType.REVERSE ],
                                                     p_visualize = p_visualize,
                                                     p_logging = p_logging ) )
 
@@ -171,15 +183,14 @@ class DemoScenario (OAStreamScenario):
 
 
 
-
 # 1 Demo setup
 
 # 1.1 Default values
 time_index_start    = 1300
-time_index_stop     = 1900
+time_index_stop     = 1400
 logging             = Log.C_LOG_ALL
 visualize           = True
-step_rate           = 20
+step_rate           = 1
 
  
 # 1.2 Welcome message
@@ -223,7 +234,7 @@ stream_iterator = myscenario._iterator
 for ti in range(time_index_start): inst = next(stream_iterator)
 
 myscenario.init_plot( p_plot_settings=PlotSettings( p_view = PlotSettings.C_VIEW_ND,
-                                                    p_view_autoselect = False, #True,
+                                                    p_view_autoselect = False,
                                                     p_step_rate = step_rate,
                                                     p_plot_horizon = plot_horizon,
                                                     p_data_horizon = data_horizon ) )
