@@ -109,7 +109,8 @@ class DemoScenario (OAStreamScenario):
                                       p_ada = p_ada,
                                       p_visualize = p_visualize,
                                       p_logging = p_logging,
-                                      p_remove_obs = True )
+                                      p_remove_obs = True, 
+                                      p_renormalize_plot_data = True )
         
         workflow.add_task( p_task = task4_ma_raw, p_pred_tasks = [ task3_raw_buffered ] )
 
@@ -129,7 +130,8 @@ class DemoScenario (OAStreamScenario):
                                          p_ada = p_ada,
                                          p_visualize = p_visualize,
                                          p_logging = p_logging,
-                                         p_remove_obs = True )
+                                         p_remove_obs = True, 
+                                         p_renormalize_plot_data = True )
         
         workflow.add_task( p_task = task6_ma_renorm, p_pred_tasks = [ task5_norm_ztrans ] )
         task5_norm_ztrans.register_event_handler( p_event_id = NormalizerZTransform.C_EVENT_ADAPTED, p_event_handler = task6_ma_renorm.renormalize_on_event )

@@ -52,7 +52,7 @@ class Static3DScenario(OAStreamScenario):
                                     p_num_clouds = 5,
                                     p_seed = 1,
                                     p_radii = [100, 150, 200, 250, 300],
-                                    p_weights = [2,3,4,5,6],
+                                    p_weights = [1,1,1,1,1],
                                     p_logging = Log.C_LOG_NOTHING )
 
         # 2 Set up a stream workflow based on a custom stream task
@@ -112,7 +112,7 @@ class Static3DScenario(OAStreamScenario):
 cycle_limit = 1000
 logging     = Log.C_LOG_ALL
 visualize   = True
-step_rate   = 2
+step_rate   = 5
 
 # 1.2 Welcome message
 print('\n\n-----------------------------------------------------------------------------------------')
