@@ -89,10 +89,11 @@ class Static2DScenario(OAStreamScenario):
         # Cluster Analyzer
         task_clusterer = WrRiverKMeans2MLPro( p_name = '#3: KMeans@River',
                                               p_n_clusters = 5,
-                                              p_halflife = 0.05, 
-                                              p_sigma = -1.0, 
+                                              p_halflife = 0.3, 
+                                              p_sigma = 0.1, 
                                               p_mu = 0.0,
                                               p_seed = 3, 
+                                              p_p = 1,
                                               p_visualize = p_visualize,
                                               p_logging = p_logging )
         
@@ -110,10 +111,10 @@ class Static2DScenario(OAStreamScenario):
 # 1 Demo setup
 
 # 1.1 Default values
-cycle_limit = 1000
+cycle_limit = 500
 logging     = Log.C_LOG_ALL
 visualize   = True
-step_rate   = 2
+step_rate   = 1
 
 # 1.2 Welcome message
 print('\n\n-----------------------------------------------------------------------------------------')

@@ -80,7 +80,7 @@ class AdScenario4ADlof (OAStreamScenario):
 # 1 Demo setup
 
 # 1.1 Default values
-cycle_limit = 90
+cycle_limit = 95
 logging     = Log.C_LOG_ALL
 visualize   = True
 step_rate   = 2

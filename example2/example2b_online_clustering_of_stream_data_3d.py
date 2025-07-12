@@ -52,7 +52,7 @@ class Static3DScenario(OAStreamScenario):
                                     p_num_clouds = 5,
                                     p_seed = 1,
                                     p_radii = [100, 150, 200, 250, 300],
-                                    p_weights = [1,1,1,1,1],
+                                    p_weights = [2,3,4,5,6],
                                     p_logging = Log.C_LOG_NOTHING )
 
         # 2 Set up a stream workflow based on a custom stream task
@@ -89,10 +89,11 @@ class Static3DScenario(OAStreamScenario):
         # Cluster Analyzer
         task_clusterer = WrRiverKMeans2MLPro( p_name = '#3: KMeans@River',
                                               p_n_clusters = 5,
-                                              p_halflife = 0.25, 
-                                              p_sigma = 1.5, 
+                                              p_halflife = 0.3, 
+                                              p_sigma = 0.5, 
                                               p_mu = 0.0,
-                                              p_seed = 30,
+                                              p_seed = 42,
+                                              p_p = 1,
                                               p_visualize = p_visualize,
                                               p_logging = p_logging )
         
@@ -109,10 +110,10 @@ class Static3DScenario(OAStreamScenario):
 # 1 Demo setup
 
 # 1.1 Default values
-cycle_limit = 1000
+cycle_limit = 600
 logging     = Log.C_LOG_ALL
 visualize   = True
-step_rate   = 5
+step_rate   = 2
 
 # 1.2 Welcome message
 print('\n\n-----------------------------------------------------------------------------------------')
