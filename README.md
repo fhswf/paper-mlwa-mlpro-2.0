@@ -10,11 +10,18 @@ This repository provides the example programs described in Section _**6. MLPro-O
 **Note for running an example from this repository:** When starting an experiment, the workflow task windows appear. These must be [manually arranged on the screen](how_to_run_an_experiment.gif) once. The positions and sizes of the windows are restored the next time the program is started. The experiment begins after confirming the window positions with \[ENTER\].
 
 
-## Example 1: Extensive preprocessing using native MLPro features
+## Example 1a: Auto-renormalization of drifting stream data (min-max)
 
-![example1](example1/example1_extensive_preprocessing.gif)
+![example1](example1/example1a_auto_renormalization_minmax.mp4)
 
-[Python script for Example 1](example1/example1_extensive_preprocessing.py)
+[Python script for Example 1](example1/example1a_auto_renormalization_minmax.py)
+
+
+## Example 1b: Auto-renormalization of drifting stream data (z-transformation)
+
+![example1](example1/example1b_auto_renormalization_ztrans.gif)
+
+[Python script for Example 1](example1/example1b_auto_renormalization_ztrans.py)
 
 
 ## Example 2a: Online clustering using KMeans@River (2D)
