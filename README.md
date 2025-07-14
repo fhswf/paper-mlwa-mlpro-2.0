@@ -5,7 +5,7 @@ This repository provides the example programs described in Section _**6. MLPro-O
 
 ## Preparation
 
-[Install these Python packages](requirements.txt)
+Install these Python packages: [stable](requirements_stable.txt) [latest](requirements_latest.txt)
 
 **Note for running an example from this repository:** When starting an experiment, the workflow task windows appear. These must be [manually arranged on the screen](how_to_run_an_experiment.gif) once. The positions and sizes of the windows are restored the next time the program is started. The experiment begins after confirming the window positions with \[ENTER\].
 
@@ -14,14 +14,14 @@ This repository provides the example programs described in Section _**6. MLPro-O
 
 ![example1](example1/example1a_auto_renormalization_minmax.gif)
 
-[Python script for Example 1](example1/example1a_auto_renormalization_minmax.py)
+[Python script for Example 1a](example1/example1a_auto_renormalization_minmax.py)
 
 
 ## Example 1b: Auto-renormalization of drifting stream data (z-transformation)
 
 ![example1](example1/example1b_auto_renormalization_ztrans.gif)
 
-[Python script for Example 1](example1/example1b_auto_renormalization_ztrans.py)
+[Python script for Example 1b](example1/example1b_auto_renormalization_ztrans.py)
 
 
 ## Example 2a: Online clustering using KMeans@River (2D)
