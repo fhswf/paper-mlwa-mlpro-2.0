@@ -12,7 +12,7 @@ This repository provides the example programs described in Section _**6. MLPro-O
 
 ## Example 1a: Auto-renormalization of drifting stream data (min-max)
 
-![example1](example1/example1a_auto_renormalization_minmax.mp4)
+![example1](example1/example1a_auto_renormalization_minmax.gif)
 
 [Python script for Example 1](example1/example1a_auto_renormalization_minmax.py)
 
