@@ -5,7 +5,7 @@ This repository provides the example programs described in Section _**6. MLPro-O
 
 ## Preparation
 
-Install these Python packages: [stable](requirements_stable.txt) [latest](requirements_latest.txt)
+Install these Python packages: [stable](requirements_stable.txt) or [latest](requirements_latest.txt)
 
 **Note for running an example from this repository:** When starting an experiment, the workflow task windows appear. These must be [manually arranged on the screen](how_to_run_an_experiment.gif) once. The positions and sizes of the windows are restored the next time the program is started. The experiment begins after confirming the window positions with \[ENTER\].
 
