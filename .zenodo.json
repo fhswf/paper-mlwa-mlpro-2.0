@@ -1,0 +1,46 @@
+{
+  "title": "MLPro 2.0 - Online machine learning in Python (Supplementary Material)",
+  "description": "This repository provides the example programs described in Section 6 (*MLPro-OA in practice*) of the above journal paper.",
+  "creators": [
+    {
+      "name": "Arend, Detlef",
+      "affiliation": "South Westphalia University of Applied Sciences, Germany",
+      "orcid": "0000-0002-8315-2346"
+    },
+    {
+      "name": "Baheti, Laxmikant Shrikant",
+      "affiliation": "South Westphalia University of Applied Sciences, Germany",
+      "orcid": "0000-0001-5879-4657"
+    },
+    {
+      "name": "Yuwono, Steve",
+      "affiliation": "South Westphalia University of Applied Sciences, Germany",
+      "orcid": "0000-0001-7570-2726"
+    },
+    {
+      "name": "Kumar, Syamraj Purushamparambil Satheesh",
+      "affiliation": "South Westphalia University of Applied Sciences, Germany"
+    },
+    {
+      "name": "Schwung, Andreas",
+      "affiliation": "South Westphalia University of Applied Sciences, Germany",
+      "orcid": "0000-0001-8405-0977"
+    }
+  ],
+  "license": "Apache-2.0",
+  "upload_type": "software",
+  "keywords": [
+    "online machine learning",
+    "Python",
+    "MLPro",
+    "framework",
+    "open source"
+  ],
+  "communities": [
+    {
+      "identifier": "mlpro"
+    }
+  ],
+  "language": "eng",
+  "access_right": "open"
+}
