@@ -16,12 +16,15 @@ Install these Python packages: [stable](requirements_stable.txt) or [latest](req
 
 [Python script for Example 1a](example1/example1a_auto_renormalization_minmax.py)
 
+[Trouble accessing OpenML dataset 1477?](example1/dataset/note.md)
 
 ## Example 1b: Auto-renormalization of drifting stream data (z-transformation)
 
 ![example1](example1/example1b_auto_renormalization_ztrans.gif)
 
 [Python script for Example 1b](example1/example1b_auto_renormalization_ztrans.py)
+
+[Trouble accessing OpenML dataset 1477?](example1/dataset/note.md)
 
 
 ## Example 2a: Online clustering using KMeans@River (2D)

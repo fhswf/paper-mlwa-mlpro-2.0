@@ -1,0 +1,96 @@
+<oml:data_set_description xmlns:oml="http://openml.org/openml">
+  <oml:id>1477</oml:id>
+  <oml:name>gas-drift-different-concentrations</oml:name>
+  <oml:version>1</oml:version>
+  <oml:description>**Author**: Alexander Vergara
+
+**Source**: UCI
+
+**Please cite**: 
+A Vergara, S Vembu, T Ayhan, M Ryan, M Homer, R Huerta. &quot;Chemical gas sensor drift compensation using classifier ensembles.&quot; Sensors and Actuators B: Chemical 166 (2012): 320-329.
+
+I Rodriguez-Lujan, J Fonollosa, A Vergara, M Homer, R Huerta. &quot;On the calibration of sensor arrays for pattern recognition using the minimal number of experiments.&quot; Chemometrics and Intelligent Laboratory Systems 130 (2014): 123-134.
+
+
+Source:
+
+Creators: Alexander Vergara (vergara '@' ucsd.edu) 
+BioCircutis Institute 
+University of California San Diego 
+San Diego, California, USA 
+Donors of the Dataset: 
+Alexander Vergara (vergara '@' ucsd.edu) 
+Jordi Fonollosa (fonollosa '@'ucsd.edu) 
+Irene Rodriguez-Lujan (irrodriguezlujan '@' ucsd.edu) 
+Ramon Huerta (rhuerta '@' ucsd.edu)
+
+
+Data Set Information:
+
+This data set contains 13,910 measurements from 16 chemical sensors exposed to 6 gases at different concentration levels. This dataset is an extension of the Gas Sensor Array Drift Dataset ([Web Link]), providing now the information about the concentration level at which the sensors were exposed for each measurement. The primary purpose of making this dataset freely accessible on-line is to provide an extensive dataset to the sensor and artificial intelligence research communities to develop and test strategies to solve a wide variety of tasks, including sensor drift, classification, regression, among others. 
+
+The dataset can be used exclusively for research purposes. Commercial purposes are fully excluded. Citation of both Vergara et al. 'Chemical gas sensor drift compensation using classifier ensembles' and Rodriguez-Lujan et al. â€œOn the calibration of sensor arrays for pattern recognition using the minimal number of experimentsâ€ is required (see below). 
+
+The dataset was gathered during the period of January 2008 to February 2011 (36 months) in a gas delivery platform facility situated at the ChemoSignals Laboratory in the BioCircuits Institute, University of California San Diego. The measurement system platform provides versatility for obtaining the desired concentrations of the chemical substances of interest with high accuracy and in a highly reproducible manner, minimizing thereby the common mistakes caused by human intervention and making it possible to exclusively concentrate on the chemical sensors. See reference 1 for more details on the experimental setup. 
+
+The resulting dataset comprises recordings from six distinct pure gaseous substances, namely Ammonia, Acetaldehyde, Acetone, Ethylene, Ethanol, and Toluene, dosed at a wide variety of concentration levels in the intervals (50,1000), (5,500), (12,1000), (10,300), (10,600), and (10,100) ppmv, respectively.
+
+
+Attribute Information:
+
+The responses of the said sensors are read in the form of the resistance across the active layer of each sensor; hence, each measurement produced a 16-channel time series, each represented by an aggregate of features reflecting the dynamic processes occurring at the sensor surface in reaction to the chemical substance being evaluated. In particular, two distinct types of features were considered in the creation of this dataset: (i) the so-called steady-state feature (DR), defined as the maximal resistance change with respect to the baseline and its DR normalized version (DR divided by the acquired value when the chemical vapor is present in the test chamber). And (ii), an aggregate of features reflecting the sensor dynamics of the increasing/decaying transient portion of the sensor response during the entire measurement. This aggregate of features is a transformation, borrowed from the field of econometrics and originally introduced to the chemo-sensing community by Muezzinoglu et al. (2009), that converts the transient portion of the sensor response into a real scalar by estimating the maximum/minimum value y[k] for the rising/decaying portion of the exponential moving average of the sensor response: 
+
+y[k] = (1-Alfa) y[k-1]+Alfa(R[k]-R[k-1]) 
+
+where R[k] is the sensor resistance measured at time k and Alfa is a scalar smoothing parameter between 0 and 1. 
+
+In particular, three different values for Alfa=0.1, 0.01, 0.001 were set to obtain three different feature values from the rising portion of the sensor response and three additional features with the same Alfa values for the decaying portion of the sensor response, covering thus the entire sensor response dynamics. 
+
+Thus, each feature vector contains the 8 features extracted from each particular sensor, resulting in a 128-dimensional feature vector (8 features x 16 sensors) containing all the features and organized as follows: 
+DR_1, |DR|_1, EMAi0.001_1, EMAi0.01_1, EMAi0.1_1, EMAd0.001_1, EMAd0.01_1, EMAd0.1_1, DR_2, |DR|_2, EMAi0.001_2, EMAi0.01_2, EMAi0.1_2, EMAd0.001_2, EMAd0.01_2, EMAd0.1_2,..., DR_16, |DR|_16, EMAi0.001_16, EMAi0.01_16, EMAi0.1_16, EMAd0.001_16, EMAd0.01_16, EMAd0.1_16 
+where: DR_j and |DR|_j are the R and the normalized R features, respectively. EMAi0.001_j, EMAi0.01_j, and EMAi0.1_j, are the emaR of the rising transient portion of the sensor response for Alfa 0.001, 0.01, and 0.1, respectively. EMAd0.001_j, EMAd0.01_j, and EMAd0.1_j, are emaR of the decaying transient portion of the sensor response for Alfa 0.001, 0.01, and 0.1, respectively. The index j=1â€¦16 represents the number of the sensor, forming thus the 128-dimensional feature vector. 
+
+For processing purposes, the dataset is organized into ten batches, each containing the number of measurements per class and month indicated in the tables below. This reorganization of data was done to ensure having a sufficient and as uniformly distributed as possible number of experiments in each batch. 
+
+Batch ID Month IDs 
+Batch 1 Months 1 and 2 
+Batch 2 Months 3, 4, 8, 9 and 10 
+Batch 3 Months 11, 12, and 13 
+Batch 4 Months 14 and 15 
+Batch 5 Month 16 
+Batch 6 Months 17, 18, 19, and 20 
+Batch 7 Month 21 
+Batch 8 Months 22 and 23 
+Batch 9 Months 24 and 30 
+Batch 10 Month 36 
+
+Batch ID: Ethanol, Ethylene, Ammonia, Acetaldehyde, Acetone, Toluene 
+Batch 1: 83, 30, 70, 98, 90, 74 
+Batch 2: 100, 109, 532, 334, 164, 5 
+Batch 3: 216, 240, 275, 490, 365, 0 
+Batch 4: 12, 30, 12, 43, 64, 0 
+Batch 5: 20, 46, 63, 40, 28, 0 
+Batch 6: 110, 29, 606, 574, 514, 467 
+Batch 7: 360, 744, 630, 662, 649, 568 
+Batch 8: 40, 33, 143, 30, 30, 18 
+Batch 9: 100, 75, 78, 55, 61, 101 
+Batch 10: 600, 600, 600, 600, 600, 600 
+
+
+The dataset is organized in files, each representing a different batch. Within the files, each line represents a measurement. The first character (1-6) codes the analyte, followed by the concentration level: 
+
+1: Ethanol; 2: Ethylene; 3: Ammonia; 4: Acetaldehyde; 5: Acetone; 6: Toluene 
+
+The data format follows the same coding style as in libsvm format x:v, where x stands for the feature number and v for the actual value of the feature. For example, in 
+1;10.000000 1:15596.162100 2:1.868245 3:2.371604 4:2.803678 5:7.512213 â€¦ 128:-2.654529 
+
+The number 1 stands for the class number (in this case Ethanol), the gas concentration level was 10ppmv, and the remaining 128 columns list the actual feature values for each measurement recording organized as described above.
+
+</oml:description>
+  <oml:description_version>1</oml:description_version>
+  <oml:format>ARFF</oml:format>
+        <oml:upload_date>2015-05-22T20:18:53</oml:upload_date>
+    <oml:licence>Public</oml:licence>  <oml:url>https://api.openml.org/data/v1/download/1588716/gas-drift-different-concentrations.arff</oml:url>
+  <oml:parquet_url>https://data.openml.org/datasets/0000/1477/dataset_1477.pq</oml:parquet_url>  <oml:file_id>1588716</oml:file_id>  <oml:default_target_attribute>Class</oml:default_target_attribute>          <oml:tag>Chemistry</oml:tag><oml:tag>Engineering</oml:tag><oml:tag>Sensing Technology</oml:tag><oml:tag>time_series</oml:tag>  <oml:visibility>public</oml:visibility>      <oml:minio_url>https://data.openml.org/datasets/0000/1477/dataset_1477.pq</oml:minio_url>  <oml:status>active</oml:status>
+  <oml:processing_date>2020-11-20 21:56:26</oml:processing_date>      <oml:md5_checksum>8041e13da9b6baacf6d6bb77b254566f</oml:md5_checksum>
+</oml:data_set_description>
